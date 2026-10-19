@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash",
+      "Write",
+      "Edit",
+      "NotebookEdit",
+      "Read(~/.config/bouncer/**)",
+      "Read(~/dev/bouncer/data/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__fo__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /Users/rello/dev/bouncer/bin/gate.mjs || exit 2",
+            "timeout": 300
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__fo__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /Users/rello/dev/bouncer/bin/post.mjs",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "mcp__fo__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /Users/rello/dev/bouncer/bin/post.mjs",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bouncer">
+  <title>Bouncer</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 28V9a10 10 0 0 1 20 0v19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M3 28h26" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="20.5" cy="18" r="1.8" fill="currentColor"/></svg>
+      <span class="wordmark">Bouncer</span>
+      <span class="sub">Authorization and evidence for Wajo Fo</span>
+    </div>
+    <div class="bar-meta" id="bar-meta" hidden>
+      <span class="live" id="live" data-state="connecting"><span class="dot"></span><span id="live-text">Connecting</span></span>
+      <button class="chain" id="chain" type="button" aria-describedby="chain-tip"></button>
+      <button class="ghost" id="pair-btn" type="button">Pair a device</button>
+    </div>
+  </header>
+
+  <main id="app" aria-live="polite">
+    <section class="unpaired" id="unpaired" hidden>
+      <h1>This device isn’t paired</h1>
+      <p>Approvals only work from devices you’ve paired. Bouncer prints a single-use pairing link when it starts.</p>
+      <ol>
+        <li>On the Mac, run <code>npm start</code> in <code>~/dev/bouncer</code>.</li>
+        <li>Open the <strong>iPhone</strong> link it prints, with Tailscale on.</li>
+        <li>This page reloads as a paired device. Links expire after 10 minutes and work once.</li>
+      </ol>
+      <p class="fine">Already paired and seeing this? Bouncer restarted. Sessions live in memory, so pair again.</p>
+    </section>
+
+    <div class="layout" id="dash" hidden>
+      <nav class="ledger" id="ledger" aria-label="Filter tasks by outcome"></nav>
+
+      <section class="boundary" aria-labelledby="boundary-h">
+        <h2 id="boundary-h">Who can do what</h2>
+        <ol class="roles">
+          <li><b>The agent proposes</b><span>Claude Code reaches Fo only through Bouncer’s hook. It can’t approve or release its own request.</span></li>
+          <li><b>Policy sorts</b><span>Read-only calls and email to yourself go through. Money and strangers are denied. Everything else waits for you. If Bouncer is down, the call is blocked.</span></li>
+          <li><b>You authorize</b><span>Only a paired device can approve. An approval covers the exact message, by SHA-256 hash, and releases it once.</span></li>
+          <li><b>Evidence stays separate</b><span>“Fo says” is Fo’s own report. “Independently confirmed” means someone checked outside Fo, such as the recipient’s inbox.</span></li>
+        </ol>
+      </section>
+
+      <section class="queue" aria-labelledby="queue-h">
+        <div class="section-head">
+          <h2 id="queue-h">Waiting for you</h2>
+          <span class="count" id="queue-count"></span>
+        </div>
+        <div id="queue"></div>
+      </section>
+
+      <section class="activity" aria-labelledby="activity-h">
+        <div class="section-head">
+          <h2 id="activity-h">Tasks <span class="count" id="task-count"></span></h2>
+          <button class="link" id="clear-filter" type="button" hidden>Show all</button>
+        </div>
+        <ol class="feed" id="feed"></ol>
+      </section>
+    </div>
+
+    <section class="loading" id="loading">
+      <div class="skel w60"></div><div class="skel w90"></div><div class="skel w75"></div>
+    </section>
+  </main>
+
+  <dialog id="pair-dialog" aria-labelledby="pair-h">
+    <h2 id="pair-h">Pair a device</h2>
+    <p>Open one of these on the device. The link works once and expires in 10 minutes.</p>
+    <ul id="pair-links"></ul>
+    <div class="dialog-actions">
+      <button class="ghost danger-text" id="logout-btn" type="button">Unpair this device</button>
+      <button class="primary" id="pair-close" type="button">Done</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>

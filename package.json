@@ -1,0 +1,15 @@
+{
+  "name": "bouncer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Approval gate between a Claude Code agent and Wajo Fo",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node bin/bouncer.mjs serve",
+    "test": "node --test 'test/*.test.mjs'",
+    "verify": "node bin/bouncer.mjs verify",
+    "trace": "node bin/bouncer.mjs trace",
+    "doctor": "node bin/bouncer.mjs doctor"
+  }
+}

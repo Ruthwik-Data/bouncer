@@ -1,0 +1,44 @@
+{
+  "self": [
+    "you@example.com"
+  ],
+  "trusted": [
+    "friend@example.com"
+  ],
+  "holdTimeoutSeconds": 240,
+  "maxMessageChars": 4000,
+  "quietHours": null,
+  "readOnlyTools": [
+    "mcp__fo__list_fo_conversations",
+    "mcp__fo__get_fo_conversation",
+    "mcp__fo__get_fo_reply"
+  ],
+  "askTool": "mcp__fo__ask_fo",
+  "askInputKeys": [
+    "message",
+    "conversationId",
+    "newConversation"
+  ],
+  "deniedTools": {
+    "mcp__fo__start_fo_call": "Live voice calls can't be checked message by message, so Bouncer never opens one."
+  },
+  "moneyPatterns": [
+    "\\b(buy|purchase|pay|payment|checkout|subscribe|subscription|donate|invoice|refund|venmo|paypal|zelle)\\b",
+    "\\b(place|make) an? order\\b",
+    "\\border (me|a|an|some|the)\\b",
+    "\\bbook (a|an|me|the) (flight|hotel|table|ticket|room|ride|car)\\b",
+    "[$€£]\\s?\\d",
+    "\\b\\d+(\\.\\d+)?\\s?(usd|dollars|eur|euros)\\b"
+  ],
+  "extraRecipientPatterns": [
+    "\\b[a-z0-9._%+-]+\\s*[\\[(]?\\s*at\\s*[\\])]?\\s*[a-z0-9-]+\\s*[\\[(]?\\s*dot\\s*[\\])]?\\s*[a-z]{2,}\\b",
+    "\\b(and|also|plus|to|cc|copy)\\s+(my|his|her|their|our)\\s+(?!own\\b|inbox\\b|email\\b|address\\b|account\\b|gmail\\b)[a-z]+",
+    "case:\\b(and|also|plus|to|cc|copy)\\s+(?!I\\b|Fo\\b|Bouncer\\b)[A-Z][a-z]+\\b",
+    "\\b(copy|loop in|include)\\b"
+  ],
+  "otherActionPatterns": [
+    "\\b(call|phone|text|sms|imessage|whatsapp|telegram|slack)\\b",
+    "\\b(calendar|invite|meeting|schedule|reschedule|cancel|rsvp)\\b",
+    "\\b(cc|bcc|forward|reply all|everyone|all my contacts)\\b"
+  ]
+}
